@@ -1,5 +1,9 @@
 package cursojava.executavel;
 
+import java.io.ObjectInputStream.GetField;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
 import cursojava.classes.Aluno;
@@ -11,9 +15,13 @@ public class ClasseExecutável {
 	public static void main(String[] args) {
 
 
-		Aluno aluno4 = new Aluno();
+		List<Aluno> alunos = new ArrayList<Aluno>();
 		
-	String nomeAluno4 = JOptionPane.showInputDialog("Qual o nome do aluno? ");
+		for (int i = 1; i<=2; i++) {
+		
+		Aluno aluno4 = new Aluno();
+			
+	String nomeAluno4 = JOptionPane.showInputDialog("Qual o nome do aluno " +i+ " ?");
 	String dateNascimentoAluno4 = JOptionPane.showInputDialog("Qual a data de nascimento do aluno? ");
 	
 	
@@ -33,12 +41,34 @@ public class ClasseExecutável {
 	aluno4.setNome(nomeAluno4);
 	aluno4.setDataNascimento(dateNascimentoAluno4);
 	
+	int escolha = JOptionPane.showConfirmDialog(null, " Deseja Remover alguma disciplina? ");
+	if (escolha == 0) {
+		int continuarRemover = 0;
+		int posicao = 1;
+		while(continuarRemover == 0) {
+		String escolhaDisciplina = JOptionPane.showInputDialog("Deseja remover a disciplina 1,2,3 ou 4? ");
+		aluno4.getDisciplinas().remove((Integer.parseInt(escolhaDisciplina)-posicao));
+		posicao ++;
+		continuarRemover = JOptionPane.showInternalConfirmDialog(null, "Continuar a remover? ");
+	}
+	}
 	
-	System.out.println("O nome do Aluno 4 é: " + aluno4.getNome());
-	System.out.println("A data de Nascimento do Aluno 4 é: " + aluno4.getDataNascimento());
-	System.out.println("A média do " + aluno4.getNome() + " é: " + aluno4.getMediaNota() + 
-			" e ele está:" + aluno4.getAlunoAprovado()); 
-	
+		alunos.add(aluno4);
+		}
+		
+	for (Aluno aluno : alunos) {
+		
+		System.out.println("O nome do Aluno é: " + aluno.getNome());
+		System.out.println("A data de Nascimento do Aluno é: " + aluno.getDataNascimento());
+		System.out.println("A média do " + aluno.getNome() + " é: " + aluno.getMediaNota() + 
+				" e ele está:" + aluno.getAlunoAprovado()); 
+		System.out.println("E suas disciplinas são: ");
+		for (Disciplina disciplinas : aluno.getDisciplinas()) {
+			System.out.println(disciplinas.getDisciplina() + " com nota: " + disciplinas.getNota());
+		}
+		System.out.println("---------------------------------------------------------------------");
+		
+	}	
 	
 
 }
